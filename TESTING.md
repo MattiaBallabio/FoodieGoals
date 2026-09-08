@@ -32,3 +32,8 @@ Start the app using README.md. Test ZIP `02108` preserves its leading zero. Test
 - Synthetic location fixtures test the inclusive radius boundary and rejection of unverified branches. No real nearby-restaurant search was claimed or tested.
 
 Not performed: screen-reader audit, physical iOS/Android device testing, live branch inventory verification, public deployment, or an exhaustive browser matrix. Manual checklist items beyond the checks above remain useful before launch.
+# Restaurant identifiers — September 8, 2026
+
+- Added a shared neutral initials/name display to meal cards (including saved meals) and the detail description. No official restaurant artwork is enabled; see `docs/LOGO_RIGHTS.md`.
+- Passed: 21 existing unit/data tests, 4 API tests against the local database, TypeScript checking, and production build.
+- This presentation-only change leaves the search flow and storage behavior unchanged. No new browser visual or screen-reader audit was performed for this change.

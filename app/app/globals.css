@@ -484,6 +484,29 @@ footer {
   margin: 10px 0 14px;
   line-height: 1.35;
 }
+.restaurant-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 100%;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #55584f;
+}
+.restaurant-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2.25rem;
+  height: 2.25rem;
+  border: 1px solid #deddd5;
+  border-radius: 0.5rem;
+  background: #f5f4f0;
+  color: #55584f;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
 .save {
   font-size: 24px;
   flex-shrink: 0;

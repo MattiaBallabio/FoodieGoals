@@ -15,6 +15,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { categories, nutrients, rank } from '@/lib/matching';
+import { RestaurantName } from '@/components/restaurant-name';
 const emojis = ['🍕', '🍜', '🍔', '🍗', '🌮', '🥪', '🥗', '🧀'];
 const initial = {
   calories: { value: '600', mode: 'range', tolerance: '100' },
@@ -203,7 +204,7 @@ export default function Home() {
     <article className="meal-card" key={meal.id}>
       <div className="card-head">
         <div>
-          <span className="eyebrow">{meal.restaurant}</span>
+          <RestaurantName name={meal.restaurant} />
           <h3>{meal.name}</h3>
         </div>
         <button
@@ -719,7 +720,8 @@ export default function Home() {
         <DialogContent className="meal-dialog">
           <DialogTitle>{detail?.name}</DialogTitle>
           <DialogDescription>
-            {detail?.restaurant} · Exact included portions
+            {detail && <RestaurantName name={detail.restaurant} />} · Exact
+            included portions
           </DialogDescription>
           {detail && (
             <>
