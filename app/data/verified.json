@@ -1,0 +1,1092 @@
+{
+  "restaurants": [
+    {
+      "id": "panda",
+      "name": "Panda Express"
+    },
+    {
+      "id": "chipotle",
+      "name": "Chipotle"
+    },
+    {
+      "id": "cfa",
+      "name": "Chick-fil-A"
+    }
+  ],
+  "items": [
+    {
+      "id": "p-greens",
+      "restaurantId": "panda",
+      "name": "Super Greens",
+      "serving": "10 oz",
+      "calories": 130,
+      "protein": 9,
+      "carbs": 14,
+      "fiber": 7,
+      "fat": 4,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-rice",
+      "restaurantId": "panda",
+      "name": "White Steamed Rice",
+      "serving": "11 oz",
+      "calories": 520,
+      "protein": 10,
+      "carbs": 118,
+      "fiber": 0,
+      "fat": 0,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-grilled",
+      "restaurantId": "panda",
+      "name": "Grilled Teriyaki Chicken",
+      "serving": "6 oz",
+      "calories": 275,
+      "protein": 33,
+      "carbs": 14,
+      "fiber": 0,
+      "fat": 10,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-orange",
+      "restaurantId": "panda",
+      "name": "Orange Chicken",
+      "serving": "5.92 oz",
+      "calories": 510,
+      "protein": 16,
+      "carbs": 53,
+      "fiber": 2,
+      "fat": 24,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-kung",
+      "restaurantId": "panda",
+      "name": "Kung Pao Chicken",
+      "serving": "6.73 oz",
+      "calories": 320,
+      "protein": 17,
+      "carbs": 15,
+      "fiber": 2,
+      "fat": 21,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-mushroom",
+      "restaurantId": "panda",
+      "name": "Mushroom Chicken",
+      "serving": "5.70 oz",
+      "calories": 220,
+      "protein": 13,
+      "carbs": 10,
+      "fiber": 1,
+      "fat": 14,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-string",
+      "restaurantId": "panda",
+      "name": "String Bean Chicken Breast",
+      "serving": "5.60 oz",
+      "calories": 210,
+      "protein": 12,
+      "carbs": 13,
+      "fiber": 5,
+      "fat": 12,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-broccoli",
+      "restaurantId": "panda",
+      "name": "Broccoli Beef",
+      "serving": "5.44 oz",
+      "calories": 150,
+      "protein": 15,
+      "carbs": 12,
+      "fiber": 2,
+      "fat": 6,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-steak",
+      "restaurantId": "panda",
+      "name": "Black Pepper Sirloin Steak",
+      "serving": "5.10 oz",
+      "calories": 180,
+      "protein": 19,
+      "carbs": 12,
+      "fiber": 2,
+      "fat": 6,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "p-tofu",
+      "restaurantId": "panda",
+      "name": "Eggplant Tofu",
+      "serving": "6.10 oz",
+      "calories": 340,
+      "protein": 7,
+      "carbs": 23,
+      "fiber": 3,
+      "fat": 24,
+      "source": "https://www.pandaexpress.com/nutritioninformation",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "c-rice",
+      "restaurantId": "chipotle",
+      "name": "Cilantro-Lime Brown Rice",
+      "serving": "4 oz",
+      "calories": 210,
+      "protein": 4,
+      "carbs": 36,
+      "fiber": 2,
+      "fat": 6,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-beans",
+      "restaurantId": "chipotle",
+      "name": "Black Beans",
+      "serving": "4 oz",
+      "calories": 130,
+      "protein": 8,
+      "carbs": 22,
+      "fiber": 7,
+      "fat": 1.5,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-salsa",
+      "restaurantId": "chipotle",
+      "name": "Fresh Tomato Salsa",
+      "serving": "4 oz",
+      "calories": 25,
+      "protein": 0,
+      "carbs": 4,
+      "fiber": 1,
+      "fat": 0,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-salad",
+      "restaurantId": "chipotle",
+      "name": "Supergreens Salad Mix",
+      "serving": "3 oz",
+      "calories": 15,
+      "protein": 1,
+      "carbs": 3,
+      "fiber": 2,
+      "fat": 0,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-veg",
+      "restaurantId": "chipotle",
+      "name": "Fajita Vegetables",
+      "serving": "2 oz",
+      "calories": 20,
+      "protein": 1,
+      "carbs": 5,
+      "fiber": 1,
+      "fat": 0,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-chicken",
+      "restaurantId": "chipotle",
+      "name": "Chicken",
+      "serving": "4 oz",
+      "calories": 180,
+      "protein": 32,
+      "carbs": 0,
+      "fiber": 0,
+      "fat": 7,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-steak",
+      "restaurantId": "chipotle",
+      "name": "Steak",
+      "serving": "4 oz",
+      "calories": 150,
+      "protein": 21,
+      "carbs": 1,
+      "fiber": 1,
+      "fat": 6,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-sofritas",
+      "restaurantId": "chipotle",
+      "name": "Sofritas",
+      "serving": "4 oz",
+      "calories": 150,
+      "protein": 8,
+      "carbs": 9,
+      "fiber": 3,
+      "fat": 10,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-barbacoa",
+      "restaurantId": "chipotle",
+      "name": "Barbacoa",
+      "serving": "4 oz",
+      "calories": 170,
+      "protein": 24,
+      "carbs": 2,
+      "fiber": 1,
+      "fat": 7,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "c-carnitas",
+      "restaurantId": "chipotle",
+      "name": "Carnitas",
+      "serving": "4 oz",
+      "calories": 210,
+      "protein": 23,
+      "carbs": 0,
+      "fiber": 0,
+      "fat": 12,
+      "source": "https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras."
+    },
+    {
+      "id": "f-grilled",
+      "restaurantId": "cfa",
+      "name": "Grilled Chicken Sandwich",
+      "serving": "1 sandwich",
+      "calories": 390,
+      "protein": 28,
+      "carbs": 45,
+      "fiber": 3,
+      "fat": 11,
+      "source": "https://www.chick-fil-a.com/menu/entrees/grilled-chicken-sandwich",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "f-spicy",
+      "restaurantId": "cfa",
+      "name": "Spicy Chicken Sandwich",
+      "serving": "1 sandwich",
+      "calories": 450,
+      "protein": 28,
+      "carbs": 45,
+      "fiber": 1,
+      "fat": 19,
+      "source": "https://www.chick-fil-a.com/menu/entrees/spicy-chicken-sandwich",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "Standard published portion; no added sauces or extras."
+    },
+    {
+      "id": "f-nuggets",
+      "restaurantId": "cfa",
+      "name": "8 ct Chick-fil-A Nuggets",
+      "serving": "1 entrée (8 nuggets)",
+      "calories": 250,
+      "protein": 27,
+      "carbs": 11,
+      "fiber": null,
+      "fat": 11,
+      "source": "https://www.chick-fil-a.com/menu/entrees/8-ct-chick-fil-a-nuggets",
+      "checked": "2026-09-07",
+      "verification": "official",
+      "note": "No dipping sauce. Fiber not available in the accessed source; stored as unknown."
+    }
+  ],
+  "meals": [
+    {
+      "id": "p-grilled-greens",
+      "restaurantId": "panda",
+      "name": "Grilled Teriyaki Chicken + Super Greens",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-grilled",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-grilled-rice",
+      "restaurantId": "panda",
+      "name": "Grilled Teriyaki Chicken + White Rice",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-grilled",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-orange-greens",
+      "restaurantId": "panda",
+      "name": "Orange Chicken + Super Greens",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-orange",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-orange-rice",
+      "restaurantId": "panda",
+      "name": "Orange Chicken + White Rice",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-orange",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-kung-greens",
+      "restaurantId": "panda",
+      "name": "Kung Pao Chicken + Super Greens",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-kung",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-kung-rice",
+      "restaurantId": "panda",
+      "name": "Kung Pao Chicken + White Rice",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-kung",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-mushroom-greens",
+      "restaurantId": "panda",
+      "name": "Mushroom Chicken + Super Greens",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-mushroom",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-mushroom-rice",
+      "restaurantId": "panda",
+      "name": "Mushroom Chicken + White Rice",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-mushroom",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-string-greens",
+      "restaurantId": "panda",
+      "name": "String Bean Chicken Breast + Super Greens",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-string",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-string-rice",
+      "restaurantId": "panda",
+      "name": "String Bean Chicken Breast + White Rice",
+      "categories": [
+        "Asian",
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "p-string",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-broccoli-greens",
+      "restaurantId": "panda",
+      "name": "Broccoli Beef + Super Greens",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-broccoli",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-broccoli-rice",
+      "restaurantId": "panda",
+      "name": "Broccoli Beef + White Rice",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-broccoli",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-steak-greens",
+      "restaurantId": "panda",
+      "name": "Black Pepper Sirloin Steak + Super Greens",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-steak",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-steak-rice",
+      "restaurantId": "panda",
+      "name": "Black Pepper Sirloin Steak + White Rice",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-steak",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-tofu-greens",
+      "restaurantId": "panda",
+      "name": "Eggplant Tofu + Super Greens",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-tofu",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-greens",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "p-tofu-rice",
+      "restaurantId": "panda",
+      "name": "Eggplant Tofu + White Rice",
+      "categories": [
+        "Asian"
+      ],
+      "components": [
+        {
+          "itemId": "p-tofu",
+          "quantity": 1
+        },
+        {
+          "itemId": "p-rice",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "c-chicken-rice",
+      "restaurantId": "chipotle",
+      "name": "Chicken brown rice bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-chicken",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-rice",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-chicken-salad",
+      "restaurantId": "chipotle",
+      "name": "Chicken greens bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-chicken",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salad",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-steak-rice",
+      "restaurantId": "chipotle",
+      "name": "Steak brown rice bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-steak",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-rice",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-steak-salad",
+      "restaurantId": "chipotle",
+      "name": "Steak greens bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-steak",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salad",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-sofritas-rice",
+      "restaurantId": "chipotle",
+      "name": "Sofritas brown rice bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-sofritas",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-rice",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-sofritas-salad",
+      "restaurantId": "chipotle",
+      "name": "Sofritas greens bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-sofritas",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salad",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-barbacoa-rice",
+      "restaurantId": "chipotle",
+      "name": "Barbacoa brown rice bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-barbacoa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-rice",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-barbacoa-salad",
+      "restaurantId": "chipotle",
+      "name": "Barbacoa greens bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-barbacoa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salad",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-carnitas-rice",
+      "restaurantId": "chipotle",
+      "name": "Carnitas brown rice bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-carnitas",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-rice",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "c-carnitas-salad",
+      "restaurantId": "chipotle",
+      "name": "Carnitas greens bowl",
+      "categories": [
+        "Mexican",
+        "Salads & Bowls"
+      ],
+      "components": [
+        {
+          "itemId": "c-carnitas",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salad",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-beans",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-salsa",
+          "quantity": 1
+        },
+        {
+          "itemId": "c-veg",
+          "quantity": 1
+        }
+      ],
+      "note": "Official US guide marked JUL 2022, checked 2026-09-07. Historical published values; current recipes require re-verification. Only listed portions; no extras. No dressing, cheese, sour cream, guacamole, or tortilla.",
+      "verification": "official"
+    },
+    {
+      "id": "f-grilled",
+      "restaurantId": "cfa",
+      "name": "Grilled Chicken Sandwich",
+      "categories": [
+        "Chicken",
+        "Sandwiches"
+      ],
+      "components": [
+        {
+          "itemId": "f-grilled",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "f-spicy",
+      "restaurantId": "cfa",
+      "name": "Spicy Chicken Sandwich",
+      "categories": [
+        "Chicken",
+        "Sandwiches"
+      ],
+      "components": [
+        {
+          "itemId": "f-spicy",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "f-nuggets",
+      "restaurantId": "cfa",
+      "name": "8 ct Chick-fil-A Nuggets",
+      "categories": [
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "f-nuggets",
+          "quantity": 1
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    },
+    {
+      "id": "f-double-nuggets",
+      "restaurantId": "cfa",
+      "name": "Two 8-count nugget entrées",
+      "categories": [
+        "Chicken"
+      ],
+      "components": [
+        {
+          "itemId": "f-nuggets",
+          "quantity": 2
+        }
+      ],
+      "note": "Only the listed items are included. No drink or additional sauces.",
+      "verification": "official"
+    }
+  ],
+  "locations": []
+}

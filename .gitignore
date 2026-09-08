@@ -1,0 +1,5 @@
+.setup/
+app/data/import.sql
+app/tsconfig.tsbuildinfo
+.tools/
+.github-auth/

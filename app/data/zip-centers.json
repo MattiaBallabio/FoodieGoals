@@ -1,0 +1,16 @@
+{
+  "02108": {
+    "city": "Boston, MA",
+    "latitude": 42.3576,
+    "longitude": -71.0684,
+    "source": "https://api.zippopotam.us/us/02108",
+    "checked": "2026-09-07"
+  },
+  "10001": {
+    "city": "New York, NY",
+    "latitude": 40.7484,
+    "longitude": -73.9967,
+    "source": "https://api.zippopotam.us/us/10001",
+    "checked": "2026-09-07"
+  }
+}
