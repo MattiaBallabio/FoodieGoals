@@ -6,6 +6,10 @@ Source and version history: [MattiaBallabio/FoodieGoals](https://github.com/Matt
 
 We save meaningful, tested Git commits and push at the end of each working session, or at a useful milestone during longer work. Future project agents follow this preference in `AGENTS.md`. This is part of active development, not an unattended recurring job. The intended domain is `foodiegoals.com`; this project has not purchased or connected it.
 
+## Future development and legal research
+
+The [seven-day development planner](docs/DEVELOPMENT_PLANNER.md) covers explicit calorie minimum/maximum entry, a new font/palette, nationwide ZIP and restaurant coverage, accounts, synced saved meals, and preparation for a later iOS app. The [legal research and launch checklist](docs/LEGAL_REVIEW.md) covers federal issues, Ohio, Boardman, and priority nationwide privacy questions. Both were prepared September 8, 2026; they document future work and unresolved release requirements, not implemented features or legal clearance.
+
 ## Quick start on this computer
 
 The app and its dependencies are in `app`. In PowerShell:
