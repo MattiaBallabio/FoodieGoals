@@ -8,6 +8,8 @@ We save meaningful, tested Git commits and push at the end of each working sessi
 
 ## Future development and legal research
 
+The recommendations page now includes a ZIP-centered map, sourced restaurant pins, and Google Maps directions. See [map behavior, providers, and limitations](docs/RESTAURANT_MAP.md). Meal recommendations still use the two-ZIP demo; mapped locations do not verify branch meal availability. Live map lookups need internet access.
+
 Restaurant names now have neutral initials badges on meal cards and details. [Logo rights review](docs/LOGO_RIGHTS.md): no official restaurant logos are enabled because permission for this use has not been established.
 
 The [seven-day development planner](docs/DEVELOPMENT_PLANNER.md) covers explicit calorie minimum/maximum entry, a new font/palette, nationwide ZIP and restaurant coverage, accounts, synced saved meals, and preparation for a later iOS app. The [legal research and launch checklist](docs/LEGAL_REVIEW.md) covers federal issues, Ohio, Boardman, and priority nationwide privacy questions. Both were prepared September 8, 2026; they document future work and unresolved release requirements, not implemented features or legal clearance.

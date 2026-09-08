@@ -37,3 +37,10 @@ Not performed: screen-reader audit, physical iOS/Android device testing, live br
 - Added a shared neutral initials/name display to meal cards (including saved meals) and the detail description. No official restaurant artwork is enabled; see `docs/LOGO_RIGHTS.md`.
 - Passed: 21 existing unit/data tests, 4 API tests against the local database, TypeScript checking, and production build.
 - This presentation-only change leaves the search flow and storage behavior unchanged. No new browser visual or screen-reader audit was performed for this change.
+# Restaurant map — September 8, 2026
+
+- Passed 28 unit/data/map tests, 5 API tests, TypeScript checking, and production build.
+- Existing `app/tests/browser-flow.mjs` passed in a temporary Edge profile: three-step search, leading-zero ZIP, strict/demo/near sections, detail totals, and favorites after reload.
+- Live Boston map: 26 sourced pins within a requested 10 miles, map tiles loaded, pin popup linked to Google Maps with the destination coordinates. A separate five-mile lookup returned 18 locations. Counts depend on live data.
+- Desktop 1280px and mobile 390px layout checked; no horizontal overflow or browser page errors. Verified zoom controls, popup directions, OSM attribution, and the expandable address/directions list. Provider-error, unknown-ZIP, partial-response, and empty-result paths are covered with controlled test responses.
+- Native Google Maps navigation and physical iPhone Safari were not tested. The verified link follows Google's documented cross-platform URL format.

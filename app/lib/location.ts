@@ -19,7 +19,7 @@ export class DemoLocationProvider implements LocationProvider {
       zipCenter: center ?? null,
       locations: [],
       message: city
-        ? `Location demo · ${city}. Branch coverage is not connected. Your radius cannot be verified; these are national-menu examples, not nearby restaurant results.`
+        ? `Location demo · ${city}. These are national-menu examples. The map shows community-mapped branches separately; it does not confirm meal availability at those locations.`
         : 'No location coverage for this ZIP yet. Try demo ZIP 10001 or 02108. We have not searched for nearby restaurants.',
     };
   }

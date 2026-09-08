@@ -494,6 +494,50 @@ footer {
   font-weight: 700;
   color: #55584f;
 }
+.restaurant-map-panel {
+  margin: 24px 0;
+  padding: 22px;
+  border: 1px solid #dfded5;
+  border-radius: 15px;
+  background: white;
+}
+.map-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.map-heading h2 { margin: 0 0 6px; font-size: 24px; }
+.map-heading p { margin: 0; font-size: 14px; }
+.map-heading > a { font-size: 14px; padding: 12px 0; }
+.restaurant-map-canvas {
+  height: clamp(300px, 50vh, 460px);
+  width: 100%;
+  border-radius: 10px;
+  background: #eee8df;
+  z-index: 0;
+}
+.restaurant-pin { background: transparent; border: 0; }
+.restaurant-pin span {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50% 50% 50% 0;
+  background: #a63719; color: white; border: 2px solid white;
+  font: bold 14px Arial, sans-serif;
+  box-shadow: 0 2px 5px #0005;
+}
+.restaurant-map-canvas .leaflet-popup-content { font-size: 14px; line-height: 1.5; }
+.restaurant-map-canvas .leaflet-popup-content p { font-size: 14px; margin: 8px 0; }
+.restaurant-map-canvas .leaflet-control-attribution { font-size: 12px; }
+.restaurant-map-canvas .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; }
+.map-location-list ol { list-style: none; margin: 0; padding: 0; max-height: 330px; overflow: auto; }
+.map-location-list li { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid #dfded5; font-size: 14px; }
+.map-location-list a { padding: 6px 0; width: fit-content; }
+.map-credit { margin: 16px 0 0; }
+@media (max-width: 600px) {
+  .restaurant-map-panel { padding: 14px; }
+}
 .restaurant-initials {
   display: inline-flex;
   align-items: center;

@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 const origin = process.env.FOODIE_URL || 'http://localhost:3000';
+test('map API validates filters and returns a ZIP center without requesting unrelated chains', async () => {
+  const bad = await fetch(origin + '/api/map?zip=02108&radius=900&chains=panda');
+  assert.equal(bad.status, 400);
+  const result = await fetch(origin + '/api/map?zip=02108&radius=5&chains=');
+  assert.equal(result.status, 200);
+  const map = await result.json();
+  assert.equal(map.status, 'ok');
+  assert.equal(map.center.latitude, 42.3576);
+  assert.deepEqual(map.branches, []);
+});
 const base = {
   calories: { value: 600, mode: 'range', tolerance: 100 },
   categories: [],

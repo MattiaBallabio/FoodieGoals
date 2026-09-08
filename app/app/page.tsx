@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/dialog';
 import { categories, nutrients, rank } from '@/lib/matching';
 import { RestaurantName } from '@/components/restaurant-name';
+import { RestaurantMap } from '@/components/restaurant-map';
 const emojis = ['🍕', '🍜', '🍔', '🍗', '🌮', '🥪', '🥗', '🧀'];
 const initial = {
   calories: { value: '600', mode: 'range', tolerance: '100' },
@@ -535,9 +536,9 @@ export default function Home() {
                         >
                           02108
                         </button>{' '}
-                        (Boston). Nutrition comes from official guides. Branches
-                        and distances are not connected, so we cannot verify
-                        your radius.
+                        (Boston). Nutrition comes from official guides. The
+                        results map shows nearby mapped branches, but their
+                        meal availability is not verified.
                       </p>
                     </div>
                   </>
@@ -642,6 +643,14 @@ export default function Home() {
               </button>
             </div>
             <div className="notice">{result.coverage.message}</div>
+            <RestaurantMap
+              key={`${applied.zip}:${applied.radius}`}
+              zip={applied.zip}
+              radius={applied.radius}
+              chains={[...new Set<string>([
+                ...result.strict, ...result.demo, ...sorted(result.near).slice(0, 8),
+              ].map((meal: any) => meal.restaurantId))].sort().join(',')}
+            />
             <div className="sort-row">
               <span>Sorted by a clear rule. No match scores.</span>
               <Choice

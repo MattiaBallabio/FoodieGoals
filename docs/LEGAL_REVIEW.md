@@ -2,6 +2,8 @@
 
 Research date: September 8, 2026. Operating location supplied by owner: Boardman, Ohio. Audience age is **not yet confirmed**. This is a preliminary, source-backed product review, not a legal opinion or a certification of compliance. It does not cover every state or municipal ordinance. Recheck applicable law and the actual product before launch, especially if recommendations, monetization, or collected data change.
 
+Subsequent implementation note (same date): the results page now requests community-mapped restaurant locations and map tiles. See [map provider, license, and privacy details](RESTAURANT_MAP.md). The baseline below describes the prototype at the time of the initial review; it does not clear the new data flow for public deployment.
+
 ## What was reviewed
 
 The current local prototype filters restaurant meal combinations against user-entered nutrition preferences. It does not assess medical history, calculate a prescribed diet, sell food, or provide clinician services. It has 30 sourced combinations from three chains, two demonstration ZIP centers, no verified restaurant branches, and browser-only favorites. Chipotle data is explicitly historical (July 2022). There are no accounts or public deployment. These facts narrow some issues; they do not establish a legal exemption.
