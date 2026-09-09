@@ -40,7 +40,7 @@ test('provider failure keeps ZIP center and does not invent branches', async () 
   assert.equal(result.status, 'branches-unavailable');
   assert.equal(result.center?.latitude, center.latitude);
   assert.deepEqual(result.branches, []);
-  assert.equal((await loadRestaurantMap('44512', 5, [], failing)).status, 'zip-unavailable');
+  assert.equal((await loadRestaurantMap('90210', 5, [], failing)).status, 'zip-unavailable');
 });
 test('empty, unknown ZIP, and partial provider responses are distinguished', async () => {
   assert.equal((await loadRestaurantMap('00000', 5, [], (async () => new Response('', { status: 404 })) as typeof fetch)).status, 'unknown-zip');

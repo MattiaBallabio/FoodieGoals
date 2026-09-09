@@ -20,7 +20,7 @@ export class DemoLocationProvider implements LocationProvider {
       locations: [],
       message: city
         ? `Location demo · ${city}. These are national-menu examples. The map shows community-mapped branches separately; it does not confirm meal availability at those locations.`
-        : 'No location coverage for this ZIP yet. Try demo ZIP 10001 or 02108. We have not searched for nearby restaurants.',
+        : 'No location coverage for this ZIP yet. Try demo ZIP 44512, 10001, or 02108. We have not searched for nearby restaurants.',
     };
   }
 }

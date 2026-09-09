@@ -4,7 +4,7 @@ Added September 8, 2026. The results page has an interactive Leaflet map centere
 
 ## Data and behavior
 
-- Existing cached ZIP centers for 10001 and 02108 are reused. Other map centers are requested from Zippopotam.us; missing ZIPs and provider failures are distinguished. This does not expand the existing two-ZIP meal recommendation demo or establish complete postal coverage.
+- Cached ZIP centers for 44512 (Boardman / Youngstown), 10001, and 02108 are reused. Other map centers are requested from Zippopotam.us; missing ZIPs and provider failures are distinguished. Meal recommendations are limited to these three demo ZIPs; this does not establish complete postal coverage. ZIP 44512 was added on September 8, 2026 using the provider's Youngstown, OH center at 41.0252, -80.6687.
 - Branches come from OpenStreetMap through Overpass. Only recognized current amenity/name or brand tags with valid coordinates within the requested radius are retained. Building centers may be used; entrances, hours, and menu availability are not verified. Same-chain representations within approximately 40 meters are deduplicated, which can merge closely adjacent listings.
 - Only returned sourced coordinates become pins. Community data can be incomplete or stale. A successful empty lookup is not a guarantee that no branches exist. Partial/error responses are not presented as complete results. Map pins do not promote a meal into the existing strict-match category.
 - Google Maps links use exact destination coordinates and omit the origin so Google can ask for or use the user's starting location. The browser/app decides how to open them. No GPS permission, Google API key, or Google route calculation is used inside FoodieGoals.

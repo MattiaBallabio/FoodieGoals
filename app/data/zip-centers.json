@@ -1,4 +1,11 @@
 {
+  "44512": {
+    "city": "Youngstown, OH",
+    "latitude": 41.0252,
+    "longitude": -80.6687,
+    "source": "https://api.zippopotam.us/us/44512",
+    "checked": "2026-09-08"
+  },
   "02108": {
     "city": "Boston, MA",
     "latitude": 42.3576,

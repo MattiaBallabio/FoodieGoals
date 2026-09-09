@@ -503,7 +503,7 @@ export default function Home() {
                       autoComplete="postal-code"
                       maxLength={5}
                       value={zip}
-                      placeholder="e.g. 02108"
+                      placeholder="e.g. 44512"
                       onChange={(e) => setZip(e.target.value)}
                       aria-describedby="location-help"
                     />
@@ -521,6 +521,14 @@ export default function Home() {
                       <b>Limited location demo</b>
                       <p>
                         Try{' '}
+                        <button
+                          type="button"
+                          className="text-button"
+                          onClick={() => setZip('44512')}
+                        >
+                          44512
+                        </button>{' '}
+                        (Boardman / Youngstown),{' '}
                         <button
                           type="button"
                           className="text-button"

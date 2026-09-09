@@ -1,6 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 const origin = process.env.FOODIE_URL || 'http://localhost:3000';
+test('44512 demo returns nutrition recommendations and its sourced map center', async () => {
+  const [status, data] = await search({ ...base, zip: '44512' });
+  assert.equal(status, 200);
+  assert.equal(data.coverage.supported, true);
+  assert.equal(data.coverage.city, 'Youngstown, OH');
+  assert.ok(data.demo.length > 0);
+  assert.equal(data.strict.length, 0);
+  const map = await (await fetch(origin + '/api/map?zip=44512&radius=10&chains=')).json();
+  assert.equal(map.status, 'ok');
+  assert.equal(map.center.latitude, 41.0252);
+  assert.equal(map.center.longitude, -80.6687);
+});
 test('map API validates filters and returns a ZIP center without requesting unrelated chains', async () => {
   const bad = await fetch(origin + '/api/map?zip=02108&radius=900&chains=panda');
   assert.equal(bad.status, 400);

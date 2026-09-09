@@ -1,5 +1,9 @@
 # FoodieGoals manual checklist
 
+## 44512 demo check — September 8, 2026
+
+Added and verified the Boardman / Youngstown quick-select and sourced ZIP center. All 34 unit/API tests, TypeScript, and build passed. Browser search and saved-meal regression flow passed; 44512 returned 11 mapped branches within ten miles, loaded tiles and working Google Maps destination links, with no page errors or mobile overflow. Live counts may change.
+
 Start the app using README.md. Test ZIP `02108` preserves its leading zero. Test ZIP `10001` also works in demo mode. These are examples, not a claim of nearby branches.
 
 | Check | Steps and expected result |

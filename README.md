@@ -8,7 +8,7 @@ We save meaningful, tested Git commits and push at the end of each working sessi
 
 ## Future development and legal research
 
-The recommendations page now includes a ZIP-centered map, sourced restaurant pins, and Google Maps directions. See [map behavior, providers, and limitations](docs/RESTAURANT_MAP.md). Meal recommendations still use the two-ZIP demo; mapped locations do not verify branch meal availability. Live map lookups need internet access.
+The recommendations page now includes a ZIP-centered map, sourced restaurant pins, and Google Maps directions. See [map behavior, providers, and limitations](docs/RESTAURANT_MAP.md). Meal recommendations support demo ZIPs **44512 (Boardman / Youngstown), 10001, and 02108**; mapped locations do not verify branch meal availability. Live map lookups need internet access.
 
 Restaurant names now have neutral initials badges on meal cards and details. [Logo rights review](docs/LOGO_RIGHTS.md): no official restaurant logos are enabled because permission for this use has not been established.
 
@@ -68,7 +68,7 @@ Primary sources:
 - [Chick-fil-A grilled sandwich](https://www.chick-fil-a.com/menu/entrees/grilled-chicken-sandwich), [spicy sandwich](https://www.chick-fil-a.com/menu/entrees/spicy-chicken-sandwich), [8-count nuggets](https://www.chick-fil-a.com/menu/entrees/8-ct-chick-fil-a-nuggets)
 - [Chipotle official US PDF, marked July 2022](https://www.chipotle.com/content/dam/poc/order/nutrition-files/PaperMenu_STANDARD_NoPricing_120221_us.pdf)
 
-**Location is explicitly a limited demo.** Supported examples: `10001` and `02108`. Their real ZIP centers were checked against Zippopotam.us and cached with source URLs in `app/data/zip-centers.json`, so the app works offline. There are **no fabricated branches, addresses, distances, or stock claims**. The locations table is intentionally empty. Unsupported ZIPs receive a coverage message rather than unrelated results.
+**Location is explicitly a limited demo.** Supported examples: `44512` (Boardman / Youngstown), `10001`, and `02108`. Their real ZIP centers were checked against Zippopotam.us and cached with source URLs in `app/data/zip-centers.json`, so nutrition results and ZIP centers work offline. The provider labels 44512 as Youngstown, OH; the quick-select identifies the Boardman / Youngstown area. There are **no fabricated branches, addresses, distances, or stock claims**. The locations table is intentionally empty; map branches are fetched separately from OpenStreetMap and require internet access. Unsupported ZIPs receive a coverage message rather than unrelated results.
 
 Because branch coverage is absent, the shipped app has **zero strict location-verified matches**. Its separate national-menu demo section shows meals meeting nutrition and category constraints. It explicitly states that the requested radius cannot be verified. Distance sorting is disabled until verified locations are available. The matching engine’s verified-location and distance behavior is covered by synthetic unit-test fixtures; those fixtures never enter the product database.
 
