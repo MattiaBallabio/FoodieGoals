@@ -19,7 +19,7 @@ import { RestaurantName } from '@/components/restaurant-name';
 import { RestaurantMap } from '@/components/restaurant-map';
 const emojis = ['🍕', '🍜', '🍔', '🍗', '🌮', '🥪', '🥗', '🧀'];
 const initial = {
-  calories: { value: '600', mode: 'range', tolerance: '100' },
+  calories: { min: '500', max: '700' },
   protein: { value: '', mode: 'min', tolerance: '5' },
   carbs: { value: '', mode: 'max', tolerance: '5' },
   fiber: { value: '', mode: 'min', tolerance: '2' },
@@ -86,20 +86,30 @@ export default function Home() {
   }, [step, screen]);
   const update = (key: string, field: string, value: string) =>
     setGoals((g: any) => ({ ...g, [key]: { ...g[key], [field]: value } }));
+  const calorieMessage = () => {
+    for (const bound of ['min', 'max']) {
+      const value = goals.calories[bound];
+      if (value.trim() === '' || !Number.isInteger(Number(value)) || Number(value) < 0 || Number(value) > 10000)
+        return 'Enter ' + (bound === 'min' ? 'minimum' : 'maximum') + ' calories as a whole number from 0 to 10,000.';
+    }
+    if (Number(goals.calories.min) > Number(goals.calories.max))
+      return 'Minimum calories must be less than or equal to maximum calories.';
+    return '';
+  };
   const validGoals = () => {
-    for (const n of nutrients) {
+    const message = calorieMessage();
+    if (message) return message;
+    for (const n of nutrients.filter((n) => n !== 'calories')) {
       const g = goals[n];
       if (g.value === '') {
-        if (n === 'calories') return 'Enter calories for this meal.';
         continue;
       }
       if (
         !Number.isFinite(Number(g.value)) ||
         Number(g.value) < 0 ||
-        Number(g.value) > 10000 ||
-        (n === 'calories' && Number(g.value) === 0)
+        Number(g.value) > 10000
       )
-        return `Enter valid ${n} (${n === 'calories' ? 'above zero' : 'zero or more'}).`;
+        return `Enter valid ${n} (zero or more).`;
       if (
         g.mode === 'range' &&
         (g.tolerance === '' ||
@@ -124,7 +134,7 @@ export default function Home() {
   const payload = () => ({
     ...Object.fromEntries(
       nutrients
-        .filter((n) => goals[n].value !== '')
+        .filter((n) => n !== 'calories' && goals[n].value !== '')
         .map((n) => [
           n,
           {
@@ -134,6 +144,7 @@ export default function Home() {
           },
         ]),
     ),
+    calories: { min: Number(goals.calories.min), max: Number(goals.calories.max) },
     categories: cats,
     zip,
     radius: Number(radius),
@@ -357,49 +368,37 @@ export default function Home() {
                 {step === 1 ? (
                   <>
                     <p>Start with calories. Make it yours from there.</p>
-                    <label htmlFor="calories">
-                      Calories for this meal{' '}
-                      <span className="required">Required</span>
-                    </label>
-                    <div className="unit-input">
-                      <input
-                        id="calories"
-                        type="number"
-                        min="1"
-                        max="10000"
-                        value={goals.calories.value}
-                        onChange={(e) =>
-                          update('calories', 'value', e.target.value)
-                        }
-                        aria-describedby="calorie-help"
-                      />
-                      <span>calories</span>
-                    </div>
-                    <div className="tolerance">
-                      <label htmlFor="cal-tolerance">Calorie tolerance ±</label>
-                      <input
-                        id="cal-tolerance"
-                        type="number"
-                        min="0"
-                        max="10000"
-                        value={goals.calories.tolerance}
-                        onChange={(e) =>
-                          update('calories', 'tolerance', e.target.value)
-                        }
-                      />
-                      <span>cal</span>
-                    </div>
+                    <fieldset className="calorie-bounds">
+                      <legend>Calories for this meal <span className="required">Both required</span></legend>
+                      {(['min', 'max'] as const).map((bound) => (
+                        <div key={bound}>
+                          <label htmlFor={'calories-' + bound}>
+                            {bound === 'min' ? 'Minimum calories' : 'Maximum calories'}
+                          </label>
+                          <div className="unit-input">
+                            <input
+                              id={'calories-' + bound}
+                              type="number"
+                              inputMode="numeric"
+                              min="0"
+                              max="10000"
+                              step="1"
+                              required
+                              value={goals.calories[bound]}
+                              onChange={(e) => update('calories', bound, e.target.value)}
+                              aria-invalid={!!error && !!calorieMessage()}
+                              aria-describedby="calorie-help calorie-error"
+                            />
+                            <span>cal</span>
+                          </div>
+                        </div>
+                      ))}
+                    </fieldset>
                     <p className="hint" id="calorie-help">
-                      Your range:{' '}
-                      {Math.max(
-                        0,
-                        Number(goals.calories.value) -
-                          Number(goals.calories.tolerance),
-                      )}
-                      –
-                      {Number(goals.calories.value) +
-                        Number(goals.calories.tolerance)}{' '}
-                      calories.
+                      Set your own lower and upper limits for one meal. Both limits are included.
+                    </p>
+                    <p id="calorie-error" className={error && calorieMessage() ? 'error' : undefined}>
+                      {error ? calorieMessage() : ''}
                     </p>
                     <details>
                       <summary>
@@ -636,7 +635,7 @@ export default function Home() {
                   Let’s find your fit.
                 </h2>
                 <p>
-                  {applied.calories.value} ± {applied.calories.tolerance} cal ·{' '}
+                  {applied.calories.min}–{applied.calories.max} cal ·{' '}
                   {applied.categories.join(', ') || 'Anything'} · {applied.zip}{' '}
                   · {applied.radius} miles requested
                 </p>
@@ -660,13 +659,13 @@ export default function Home() {
               ].map((meal: any) => meal.restaurantId))].sort().join(',')}
             />
             <div className="sort-row">
-              <span>Sorted by a clear rule. No match scores.</span>
+              <span>Calorie matches sort closest to the midpoint of your limits.</span>
               <Choice
                 label="Sort meals"
                 value={sort}
                 onChange={setSort}
                 options={[
-                  { value: 'calories', label: 'Closest calorie match' },
+                  { value: 'calories', label: 'Closest to calorie midpoint' },
                   { value: 'protein', label: 'Highest protein' },
                   {
                     value: 'distance',

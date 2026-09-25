@@ -1,6 +1,37 @@
 // Run with a fresh FoodieGoals tab from Codex's supported browser tools.
 // Example: await runBrowserFlow(await browser.tabs.get(testTabId)).
 // The tab must already be on the local app. Uses no hidden browser state.
+export async function runCalorieBoundsFlow(tab) {
+  const p = tab.playwright;
+  await p.locator('main[data-ready="true"]').waitFor({ state: 'visible' });
+  const minimum = p.getByLabel('Minimum calories', { exact: true });
+  const maximum = p.getByLabel('Maximum calories', { exact: true });
+  const next = p.getByRole('button', { name: 'Next: what sounds good →' });
+  const assert = (ok, message) => { if (!ok) throw Error(message); };
+  await minimum.fill('800');
+  await maximum.fill('600');
+  await next.click();
+  assert(await p.getByRole('alert').isVisible(), 'Reversed calorie bounds were accepted');
+  assert(await minimum.isVisible(), 'Invalid calorie bounds advanced the form');
+  await minimum.fill('');
+  await next.click();
+  assert(await p.getByRole('alert').isVisible(), 'Missing minimum was accepted');
+  await minimum.fill('500');
+  await maximum.fill('500');
+  await next.click();
+  await p.getByRole('button', { name: 'Next: your location →' }).click();
+  await p.getByRole('button', { name: '44512', exact: true }).click();
+  await p.getByRole('button', { name: 'Find my meals', exact: true }).click();
+  await p.getByRole('heading', { name: 'Let’s find your fit.' }).waitFor({ state: 'visible' });
+  const dom = await p.domSnapshot();
+  assert(dom.includes('44512'), '44512 shortcut did not reach the results');
+  assert(dom.includes('Nutrition matches'), 'Exact calorie target failed to return a result section');
+  assert(dom.includes('Two 8-count') || dom.includes('Double 8-count'), 'Expected exact 500-calorie meal is missing');
+  await p.getByRole('button', { name: 'Edit filters', exact: true }).click();
+  assert(await minimum.isVisible(), 'Edit filters did not restore calorie controls');
+  return 'Passed: min/max labels, reversed/missing validation, equal bounds, 44512 results, and edit filters.';
+}
+
 export async function runBrowserFlow(tab) {
   const p = tab.playwright;
   await p.locator('main[data-ready="true"]').waitFor({ state: 'visible' });

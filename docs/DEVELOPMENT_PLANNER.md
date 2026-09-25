@@ -2,6 +2,8 @@
 
 Created September 8, 2026. **Planning only: none of these product changes is being implemented in this session.** Day 1 starts when the owner chooses to resume development; these are seven working sessions, not scheduled reminders or automatic jobs.
 
+**Progress update, September 8, 2026:** The owner subsequently authorized specific work. The three-ZIP demo (including 44512), recommendation map with directions, navy/teal/Inter redesign, and explicit calorie min/max controls are now implemented. See [interface/filter notes](INTERFACE_AND_FILTERS.md) and [map notes](RESTAURANT_MAP.md). The schedule below preserves the original plan; uncompleted legal, nationwide data, account, and iOS acceptance criteria remain open.
+
 ## Outcome and working assumptions
 
 Build toward a mobile-friendly service that accurately finds meals within explicit calorie limits, recognizes US ZIP codes, and lets users securely save meals across devices. Establish a reusable account/API foundation for a later native iOS app. Improve typography and colors after reviewing options with the owner.

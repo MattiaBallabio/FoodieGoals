@@ -20,8 +20,9 @@ export type Constraint = {
   mode: 'min' | 'max' | 'range';
   tolerance: number;
 };
+export type CalorieBounds = { min: number; max: number };
 export type Filters = {
-  calories: Constraint;
+  calories: CalorieBounds;
   protein?: Constraint;
   carbs?: Constraint;
   fiber?: Constraint;
@@ -31,30 +32,50 @@ export type Filters = {
   radius: number;
   sort: string;
 };
+function validateCalories(c: any): CalorieBounds {
+  if (!c || typeof c !== 'object' || Array.isArray(c))
+    throw Error('Enter both minimum and maximum calories.');
+  const hasBounds = 'min' in c || 'max' in c;
+  const hasLegacy = 'value' in c || 'mode' in c || 'tolerance' in c;
+  if (hasBounds && hasLegacy)
+    throw Error('Use minimum and maximum calories without a target or tolerance.');
+  if (hasBounds) {
+    for (const bound of ['min', 'max'] as const) {
+      if (typeof c[bound] !== 'number' || !Number.isInteger(c[bound]) || c[bound] < 0 || c[bound] > 10000)
+        throw Error('Enter ' + (bound === 'min' ? 'minimum' : 'maximum') + ' calories as a whole number from 0 to 10,000.');
+    }
+    if (c.min > c.max)
+      throw Error('Minimum calories must be less than or equal to maximum calories.');
+    return { min: c.min, max: c.max };
+  }
+  // Preserve existing API targets, including decimals and upper bounds above 10,000.
+  if (typeof c.value !== 'number' || !Number.isFinite(c.value) || c.value <= 0 || c.value > 10000)
+    throw Error('Enter a valid legacy calorie target above zero, up to 10,000.');
+  if (c.mode !== 'range') throw Error('Choose a valid legacy calorie comparison.');
+  if (typeof c.tolerance !== 'number' || !Number.isFinite(c.tolerance) || c.tolerance < 0 || c.tolerance > 10000)
+    throw Error('Enter a valid legacy calorie tolerance.');
+  return { min: Math.max(0, c.value - c.tolerance), max: c.value + c.tolerance };
+}
 export function validateFilters(raw: any): Filters {
   if (!raw || typeof raw !== 'object')
     throw Error('Please enter your meal goals.');
-  const out: any = {};
-  for (const key of nutrients) {
+  const out: any = { calories: validateCalories(raw.calories) };
+  for (const key of nutrients.filter((key) => key !== 'calories')) {
     const c = raw[key];
     if (c === undefined || c === null || c.value === '' || c.value === null) {
-      if (key === 'calories')
-        throw Error('Calories for this meal is required.');
       continue;
     }
     if (
       typeof c.value !== 'number' ||
       !Number.isFinite(c.value) ||
       c.value < 0 ||
-      c.value > 10000 ||
-      (key === 'calories' && c.value === 0)
+      c.value > 10000
     )
       throw Error(
-        `Enter a valid ${key} value (${key === 'calories' ? 'above zero' : 'zero or more'}, up to 10,000).`,
+        `Enter a valid ${key} value (zero or more, up to 10,000).`,
       );
     if (
-      !['min', 'max', 'range'].includes(c.mode) ||
-      (key === 'calories' && c.mode !== 'range')
+      !['min', 'max', 'range'].includes(c.mode)
     )
       throw Error(`Choose a valid ${key} comparison.`);
     if (
@@ -111,14 +132,15 @@ export function evaluate(meal: any, filters: Filters) {
     if (!c) continue;
     const value = meal.totals[key],
       unit = key === 'calories' ? 'cal' : 'g';
-    const low =
-        c.mode === 'max'
+    const constraint = c as Constraint;
+    const low = key === 'calories' ? filters.calories.min :
+        constraint.mode === 'max'
           ? 0
-          : Math.max(0, c.value - (c.mode === 'range' ? c.tolerance : 0)),
-      high =
-        c.mode === 'min'
+          : Math.max(0, constraint.value - (constraint.mode === 'range' ? constraint.tolerance : 0)),
+      high = key === 'calories' ? filters.calories.max :
+        constraint.mode === 'min'
           ? Infinity
-          : c.value + (c.mode === 'range' ? c.tolerance : 0);
+          : constraint.value + (constraint.mode === 'range' ? constraint.tolerance : 0);
     if (value === null || value === undefined) {
       misses.push(`${key}: nutrition unknown`);
       continue;
@@ -134,13 +156,14 @@ export function evaluate(meal: any, filters: Filters) {
     else
       met.push(
         key === 'calories'
-          ? 'Within your calorie range'
-          : `Meets your ${key} ${c.mode === 'min' ? 'minimum' : c.mode === 'max' ? 'maximum' : 'target range'}`,
+          ? 'Meets your calorie minimum and maximum'
+          : `Meets your ${key} ${constraint.mode === 'min' ? 'minimum' : constraint.mode === 'max' ? 'maximum' : 'target range'}`,
       );
   }
   return { met, misses };
 }
 export function rank(meals: any[], filters: Filters) {
+  const calorieMidpoint = (filters.calories.min + filters.calories.max) / 2;
   return [...meals].sort((a, b) => {
     if (filters.sort === 'protein') {
       const protein = (b.totals.protein ?? -1) - (a.totals.protein ?? -1);
@@ -151,8 +174,8 @@ export function rank(meals: any[], filters: Filters) {
       if (Number.isFinite(distance) && distance) return distance;
     }
     return (
-      Math.abs(a.totals.calories - filters.calories.value) -
-        Math.abs(b.totals.calories - filters.calories.value) ||
+      Math.abs(a.totals.calories - calorieMidpoint) -
+        Math.abs(b.totals.calories - calorieMidpoint) ||
       a.id.localeCompare(b.id)
     );
   });

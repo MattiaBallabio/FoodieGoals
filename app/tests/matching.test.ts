@@ -12,7 +12,7 @@ import {
 import { DemoLocationProvider, milesFromZipCenter } from '../lib/location.ts';
 import { validateData, toSQL } from '../scripts/import.mjs';
 const base = () => ({
-  calories: { value: 600, mode: 'range', tolerance: 100 },
+  calories: { min: 500, max: 700 },
   categories: [],
   zip: '02108',
   radius: 10,
@@ -43,7 +43,7 @@ test('calories required, inclusive range boundaries', () => {
     );
   assert.throws(() => validateFilters({ ...base(), calories: { value: '' } }));
 });
-for (const n of nutrients.slice(1))
+for (const n of nutrients.filter((n) => n !== 'calories'))
   for (const mode of ['min', 'max', 'range'])
     test(`${n} ${mode}, zero vs blank and unknown`, () => {
       const filters = validateFilters({
@@ -205,4 +205,46 @@ test('import rejects duplicates, invalid nutrients, and mixed restaurants', () =
   d.meals[0].components[0].itemId = 'f-nuggets';
   assert.throws(() => validateData(d));
   assert.match(toSQL(data), /ON CONFLICT/);
+});
+
+test('explicit calorie bounds require finite whole numbers and reject ambiguous formats', () => {
+  for (const calories of [undefined, null, [], {}, { min: 500 }, { max: 700 }, { min: 701, max: 700 },
+    { min: 500, max: 700, value: 600 }, { min: 500, max: 700, mode: 'range' },
+    { min: 500, max: 700, tolerance: 100 }])
+    assert.throws(() => validateFilters({ ...base(), calories }));
+  for (const bound of ['min', 'max'])
+    for (const value of ['', null, '500', false, -1, 1.5, NaN, Infinity, -Infinity, 10001])
+      assert.throws(() => validateFilters({ ...base(), calories: { min: 0, max: 10000, [bound]: value } }));
+  assert.deepEqual(validateFilters({ ...base(), calories: { min: 0, max: 10000 } }).calories, { min: 0, max: 10000 });
+});
+test('equal calorie bounds match exactly, including zero; missing nutrition stays unknown', () => {
+  for (const value of [0, 600, 10000]) {
+    const filters = validateFilters({ ...base(), calories: { min: value, max: value } });
+    assert.equal(evaluate({ ...meal, totals: { ...meal.totals, calories: value } }, filters).misses.length, 0);
+    assert.equal(evaluate({ ...meal, totals: { ...meal.totals, calories: value + 1 } }, filters).misses.length, 1);
+    assert.equal(evaluate({ ...meal, totals: { ...meal.totals, calories: null } }, filters).misses[0], 'calories: nutrition unknown');
+  }
+  const f = validateFilters(base());
+  assert.match(evaluate({ ...meal, totals: { ...meal.totals, calories: 499 } }, f).misses[0], /1cal below 500cal minimum/);
+  assert.match(evaluate({ ...meal, totals: { ...meal.totals, calories: 701 } }, f).misses[0], /1cal above 700cal maximum/);
+});
+test('legacy calorie targets normalize without changing accepted matching bounds', () => {
+  for (const [value, tolerance, min, max] of [[600, 100, 500, 700], [50, 100, 0, 150], [600.5, 10.25, 590.25, 610.75], [10000, 10000, 0, 20000]]) {
+    const filters = validateFilters({ ...base(), calories: { value, mode: 'range', tolerance } });
+    assert.deepEqual(filters.calories, { min, max });
+    for (const calories of [min, max])
+      assert.equal(evaluate({ ...meal, totals: { ...meal.totals, calories } }, filters).misses.length, 0);
+  }
+  assert.throws(() => validateFilters({ ...base(), calories: { value: 600, mode: 'min', tolerance: 100 } }));
+});
+test('calorie ranking uses the bounds midpoint, with deterministic ties and protein precedence', () => {
+  const f = validateFilters({ ...base(), calories: { min: 100, max: 900 } });
+  const list = [['lower', 450, 20], ['upper', 550, 90], ['center', 500, 10], ['far', 800, 30]]
+    .map(([id, calories, protein]) => ({ ...meal, id, totals: { ...meal.totals, calories, protein } }));
+  assert.deepEqual(rank(list, f).map((m) => m.id), ['center', 'lower', 'upper', 'far']);
+  assert.deepEqual(rank(list, { ...f, sort: 'protein' }).map((m) => m.id), ['upper', 'far', 'lower', 'center']);
+  assert.deepEqual(list.map((m) => m.id), ['lower', 'upper', 'center', 'far']);
+  const legacy = validateFilters({ ...base(), calories: { value: 50, tolerance: 100, mode: 'range' } });
+  const clipped = [50, 75].map((calories) => ({ ...meal, id: String(calories), totals: { ...meal.totals, calories } }));
+  assert.equal(rank(clipped, legacy)[0].id, '75');
 });

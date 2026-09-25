@@ -12,7 +12,7 @@ The recommendations page now includes a ZIP-centered map, sourced restaurant pin
 
 Restaurant names now have neutral initials badges on meal cards and details. [Logo rights review](docs/LOGO_RIGHTS.md): no official restaurant logos are enabled because permission for this use has not been established.
 
-The [seven-day development planner](docs/DEVELOPMENT_PLANNER.md) covers explicit calorie minimum/maximum entry, a new font/palette, nationwide ZIP and restaurant coverage, accounts, synced saved meals, and preparation for a later iOS app. The [legal research and launch checklist](docs/LEGAL_REVIEW.md) covers federal issues, Ohio, Boardman, and priority nationwide privacy questions. Both were prepared September 8, 2026; they document future work and unresolved release requirements, not implemented features or legal clearance.
+The [seven-day development planner](docs/DEVELOPMENT_PLANNER.md) tracks nationwide coverage, accounts, synced saved meals, and preparation for a later iOS app. Its first UI milestones are now implemented: explicit calorie minimum/maximum entry, a navy-and-teal palette, and self-hosted Inter typography. See [interface and calorie-filter notes](docs/INTERFACE_AND_FILTERS.md). The [legal research and launch checklist](docs/LEGAL_REVIEW.md) covers federal issues, Ohio, Boardman, and priority nationwide privacy questions; it remains preliminary research, not legal clearance.
 
 ## Quick start on this computer
 
@@ -45,7 +45,7 @@ The checked-in pnpm configuration explicitly disables those dependency build scr
 
 ## What works
 
-- Three steps, editable calorie tolerance, optional minimum/maximum/range nutrient preferences, multiple categories, and five-digit ZIP validation.
+- Three steps, separate calorie minimum and maximum fields, optional minimum/maximum/range nutrient preferences, multiple categories, and five-digit ZIP validation.
 - A persistent SQLite database (local Cloudflare D1) queried through server API routes. No restaurant scraping during searches.
 - Exact component totals, explanations for every active constraint, separate strict/demo/near sections, sorting, details, source links, and saved meals.
 - Phone and desktop layouts, keyboard focus, accessible select and dialog controls, loading, validation, empty, and server-error states.
@@ -115,7 +115,7 @@ For schema changes, edit `app/db/schema.ts`, run `node node_modules/drizzle-kit/
 - `app/app/api/search/route.ts`: validated `POST /api/search`; `app/app/api/meals/route.ts`: catalog for saved meals.
 - `app/db/schema.ts` and `app/drizzle`: relational schema and its migration. Rich serving/nutrition/source fields are stored in validated JSON records within the item and meal tables.
 
-Calories use an inclusive target range. Each optional constraint is evaluated independently; all must pass. An active nutrient with unknown data fails verification. Selected categories are an OR (“Asian or Chicken”). Ranking uses absolute calorie difference, then stable meal ID; protein sorting uses descending known protein, then calorie difference; distance uses verified straight-line miles, then calorie difference. No percentages or AI scores. Near matches always list failures and never silently change a constraint.
+Calories use inclusive minimum and maximum values. Both are required whole numbers from 0 through 10,000, with minimum no greater than maximum; equal values request an exact calorie total. These are technical input limits, not medical advice. Each optional constraint is evaluated independently; all must pass. An active nutrient with unknown data fails verification. Selected categories are an OR (“Asian or Chicken”). Ranking uses distance from the midpoint of the calorie bounds, then stable meal ID; protein sorting uses descending known protein, then midpoint distance; distance uses verified straight-line miles, then midpoint distance. No percentages or AI scores. Near matches always list failures and never silently change a constraint. Legacy target/tolerance API requests remain accepted and are normalized into bounds.
 
 The starter uses React with Vinext/Vite and Cloudflare’s local SQLite runtime. The generated stack includes some unused UI primitives for later work. Vinext is a beta dependency; reassess framework stability and pin/update dependencies before a public launch. The shared API and matching module can support a future mobile client without rewriting nutrition arithmetic.
 

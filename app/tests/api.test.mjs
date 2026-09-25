@@ -24,7 +24,7 @@ test('map API validates filters and returns a ZIP center without requesting unre
   assert.deepEqual(map.branches, []);
 });
 const base = {
-  calories: { value: 600, mode: 'range', tolerance: 100 },
+  calories: { min: 500, max: 700 },
   categories: [],
   zip: '02108',
   radius: 10,
@@ -96,4 +96,33 @@ test('unsupported ZIP, invalid ZIP and explicit zero', async () => {
   });
   assert.equal(zero.demo.length, 0);
   assert.ok(zero.near.length > 0);
+});
+
+test('explicit bounds preserve inclusive exact calorie matches and allow zero', async () => {
+  const [status, exact] = await search({ ...base, calories: { min: 500, max: 500 } });
+  assert.equal(status, 200);
+  assert.ok(exact.demo.some((m) => m.id === 'f-double-nuggets'));
+  assert.ok(exact.demo.every((m) => m.totals.calories === 500));
+  const [zeroStatus, zero] = await search({ ...base, calories: { min: 0, max: 0 } });
+  assert.equal(zeroStatus, 200);
+  assert.equal(zero.demo.length, 0);
+  assert.ok(zero.near.length > 0);
+});
+test('API rejects missing, reversed, nonnumeric, fractional and mixed calorie bounds', async () => {
+  for (const calories of [undefined, null, {}, { min: 500 }, { max: 700 },
+    { min: 701, max: 700 }, { min: '', max: 700 }, { min: null, max: 700 },
+    { min: '500', max: 700 }, { min: 500.5, max: 700 }, { min: -1, max: 700 },
+    { min: 500, max: 10001 }, { min: 500, max: 700, tolerance: 100 }]) {
+    const [status, data] = await search({ ...base, calories });
+    assert.equal(status, 400, JSON.stringify(calories));
+    assert.equal(typeof data.error, 'string');
+  }
+});
+test('legacy requests keep equivalent results to explicit default calorie bounds', async () => {
+  const [boundsStatus, bounds] = await search(base);
+  const [legacyStatus, legacy] = await search({ ...base, calories: { value: 600, mode: 'range', tolerance: 100 } });
+  assert.equal(boundsStatus, 200);
+  assert.equal(legacyStatus, 200);
+  for (const group of ['strict', 'demo', 'near'])
+    assert.deepEqual(legacy[group].map((m) => m.id), bounds[group].map((m) => m.id));
 });
