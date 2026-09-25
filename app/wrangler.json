@@ -5,7 +5,7 @@
     {
       "binding": "DB",
       "database_name": "site-creator-d1",
-      "database_id": "00000000-0000-4000-8000-000000000000",
+      "database_id": "4f52f340-6915-4afb-bbe5-3483865f6c95",
       "migrations_dir": "drizzle"
     }
   ]
