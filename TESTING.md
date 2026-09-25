@@ -42,7 +42,7 @@ Start the app using README.md. Test ZIP `02108` preserves its leading zero. Demo
 - Visual inspection at 390px and 1280px; mobile document width did not exceed viewport. Official photograph loaded successfully.
 - Synthetic location fixtures test the inclusive radius boundary and rejection of unverified branches. No real nearby-restaurant search was claimed or tested.
 
-Not performed: screen-reader audit, physical iOS/Android device testing, live branch inventory verification, public deployment, or an exhaustive browser matrix. Manual checklist items beyond the checks above remain useful before launch.
+Not performed: screen-reader audit, physical iOS/Android device testing, live branch inventory verification, or an exhaustive browser matrix. The Cloudflare Worker is published; a live 44512 search returned nutrition matches on September 25, 2026. The remaining checklist items still need review for the published site.
 # Restaurant identifiers — September 8, 2026
 
 - Added a shared neutral initials/name display to meal cards (including saved meals) and the detail description. No official restaurant artwork is enabled; see `docs/LOGO_RIGHTS.md`.

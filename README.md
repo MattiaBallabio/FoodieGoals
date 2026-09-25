@@ -1,10 +1,16 @@
 # FoodieGoals — Find your next bite.
 
-A local, mobile-friendly first version. Open **http://localhost:3000/** while the development server is running. Nothing has been published and no paid services or API keys are needed.
+A mobile-friendly meal finder published at **https://foodiegoals.mattiaballabio8-cloudfare.workers.dev/**. The site runs on a Cloudflare Worker with D1 for meal data. The local development version is available at **http://localhost:3000/** while the development server is running.
 
 Source and version history: [MattiaBallabio/FoodieGoals](https://github.com/MattiaBallabio/FoodieGoals) (private). The local folder remains named `Foodie` so existing project paths and database storage continue to work. The saved-meal storage key also stays compatible with the original version.
 
-We save meaningful, tested Git commits and push at the end of each working session, or at a useful milestone during longer work. Future project agents follow this preference in `AGENTS.md`. This is part of active development, not an unattended recurring job. The intended domain is `foodiegoals.com`; this project has not purchased or connected it.
+We save meaningful, tested Git commits and push at the end of each working session, or at a useful milestone during longer work. Future project agents follow this preference in `AGENTS.md`. This is part of active development, not an unattended recurring job. The intended domain is `foodiegoals.com`; it has not been connected to the published site.
+
+## Published site and current limits
+
+The Cloudflare Worker is live, and its D1 database contains 3 restaurants, 23 menu items, and 30 meal combinations. A live search for demo ZIP 44512 returned nutrition matches on September 25, 2026. Location remains a limited demo: mapped branches do not verify that a particular meal is available there, and there are no strict location-verified matches. Saved meals remain in each browser's local storage; there are no accounts or cross-device sync.
+
+Publication does not resolve the outstanding data, image-rights, accessibility, privacy, and operational review noted below. In particular, the Chick-fil-A photograph currently shown has no established commercial reuse license, and Chipotle nutrition is based on a July 2022 source. Resolve these before broader promotion.
 
 ## Future development and legal research
 
@@ -58,7 +64,7 @@ There are **30 sourced meal combinations from 3 chains**, built from 23 individu
 |---|---:|---|
 | Panda Express | 16 | Eight entrées paired with a full published portion of either Super Greens or white rice. Values transcribed from the official US nutrition table on September 7, 2026. |
 | Chick-fil-A | 4 | Two sandwiches, an 8-count nugget entrée, and two 8-count nugget entrées. Official product-page values checked September 7, 2026. Nugget fiber was not available in the accessed page and is **null**. |
-| Chipotle | 10 | Five proteins with either brown rice or greens, plus beans, salsa, and vegetables. The accessible official US PDF is marked **July 2022**. These historical published values are clearly labeled on every card and need current-menu re-verification before launch. |
+| Chipotle | 10 | Five proteins with either brown rice or greens, plus beans, salsa, and vegetables. The accessible official US PDF is marked **July 2022**. These historical published values are clearly labeled on every card and need current-menu re-verification. |
 
 All portions, source URLs, notes, and dates are in `app/data/verified.json`. “Official” describes the provenance of the transcribed facts, not guaranteed freshness or branch inventory. Combinations are FoodieGoals suggestions, not claims of official named combos. Drinks and unlisted extras are excluded. Chipotle customizations are exact published components, with no guessed subtraction for sauces or ingredients. Nutrition and menu availability can vary.
 
@@ -72,7 +78,7 @@ Primary sources:
 
 Because branch coverage is absent, the shipped app has **zero strict location-verified matches**. Its separate national-menu demo section shows meals meeting nutrition and category constraints. It explicitly states that the requested radius cannot be verified. Distance sorting is disabled until verified locations are available. The matching engine’s verified-location and distance behavior is covered by synthetic unit-test fixtures; those fixtures never enter the product database.
 
-The official Chick-fil-A photograph is loaded from its website as a local preview reference. No open commercial reuse license was established; obtain permission or replace it with owned/licensed photography before public launch.
+The official Chick-fil-A photograph is loaded from its website. No open commercial reuse license was established; obtain permission or replace it with owned/licensed photography.
 
 ## Tests and build
 
@@ -117,13 +123,13 @@ For schema changes, edit `app/db/schema.ts`, run `node node_modules/drizzle-kit/
 
 Calories use inclusive minimum and maximum values. Both are required whole numbers from 0 through 10,000, with minimum no greater than maximum; equal values request an exact calorie total. These are technical input limits, not medical advice. Each optional constraint is evaluated independently; all must pass. An active nutrient with unknown data fails verification. Selected categories are an OR (“Asian or Chicken”). Ranking uses distance from the midpoint of the calorie bounds, then stable meal ID; protein sorting uses descending known protein, then midpoint distance; distance uses verified straight-line miles, then midpoint distance. No percentages or AI scores. Near matches always list failures and never silently change a constraint. Legacy target/tolerance API requests remain accepted and are normalized into bounds.
 
-The starter uses React with Vinext/Vite and Cloudflare’s local SQLite runtime. The generated stack includes some unused UI primitives for later work. Vinext is a beta dependency; reassess framework stability and pin/update dependencies before a public launch. The shared API and matching module can support a future mobile client without rewriting nutrition arithmetic.
+The starter uses React with Vinext/Vite and Cloudflare D1 (local SQLite for development). The generated stack includes some unused UI primitives for later work. Vinext is a beta dependency; reassess framework stability and pin/update dependencies as the site matures. The shared API and matching module can support a future mobile client without rewriting nutrition arithmetic.
 
 ## Next steps
 
 1. **Broader accurate data:** replace historical Chipotle values with current official records; add more chains and category coverage; review allergens separately if that becomes a product feature. Add automated freshness reports and human review of changed portions.
 2. **Live location coverage:** choose a permitted/licensed restaurant directory (or maintain sourced branch records), implement `LocationProvider`, calculate distances from the real ZIP center, and label distances as approximate straight-line miles. Keep stock unconfirmed unless a source explicitly verifies it. Keep service keys on the server in ignored environment files; no browser keys are needed for this prototype.
-3. **Public launch:** obtain permission before publishing; review data/photo reuse, accessibility, API rate limits, request-size limits, monitoring, backups, privacy, and dependency stability. Add importer transactions/review tooling and scalable database queries as the catalog grows. No hosting account or service was purchased here.
+3. **Release readiness:** resolve data/photo reuse, accessibility, API rate limits, request-size limits, monitoring, backups, privacy, and dependency stability for the published site. Add importer transactions/review tooling and scalable database queries as the catalog grows.
 4. **Future mobile app:** consume the existing HTTP API, reuse the matching types/rules, and add device-local favorites first. Accounts, payments, delivery, and native apps are intentionally outside this version.
 
 The `.setup` folder holds the locally installed scaffold tool used to work around a Windows package-manager resolution issue. It is not part of the app and is not needed to start FoodieGoals.
