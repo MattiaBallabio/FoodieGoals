@@ -11,7 +11,7 @@
 
 Added and verified the Boardman / Youngstown quick-select and sourced ZIP center. All 34 unit/API tests, TypeScript, and build passed. Browser search and saved-meal regression flow passed; 44512 returned 11 mapped branches within ten miles, loaded tiles and working Google Maps destination links, with no page errors or mobile overflow. Live counts may change.
 
-Start the app using README.md. Test ZIP `02108` preserves its leading zero. Demo ZIPs `44512` and `10001` also work. Community-mapped branches do not confirm availability of specific meals.
+Use [the developer guide](docs/DEVELOPER_GUIDE.md) for local setup. Test ZIP `02108` preserves its leading zero. Demo ZIPs `44512` and `10001` also work. Community-mapped branches do not confirm availability of specific meals.
 
 | Check | Steps and expected result |
 |---|---|
