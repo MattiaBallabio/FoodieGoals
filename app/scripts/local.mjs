@@ -12,7 +12,12 @@ const commands = {
     '--config',
     'wrangler.json',
   ],
-  test: ['--test', 'tests/matching.test.ts', 'tests/map.test.ts'],
+  test: [
+    '--test',
+    'tests/matching.test.ts',
+    'tests/map.test.ts',
+    'tests/assignment4-unit.test.ts',
+  ],
   api: ['--test', 'tests/api.test.mjs'],
   import: ['scripts/import.mjs', ...process.argv.slice(3)],
 };
