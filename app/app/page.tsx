@@ -25,6 +25,35 @@ const initial = {
   fiber: { value: '', mode: 'min', tolerance: '2' },
   fat: { value: '', mode: 'max', tolerance: '5' },
 };
+const chickenPhotos: Partial<Record<string, string>> = {
+  'f-grilled': 'grilled-sandwich',
+  'f-spicy': 'crispy-sandwich',
+  'f-nuggets': 'nuggets',
+  'f-double-nuggets': 'double-nuggets',
+};
+const componentPhotos: Partial<Record<string, string>> = {
+  'c-rice': 'rice-bowl',
+  'c-salad': 'greens-bowl',
+  'p-rice': 'rice-plate',
+  'p-greens': 'greens-plate',
+};
+
+function MealPhoto({ meal }: {
+  meal: { id: string; components: { item: { id: string } }[] };
+}) {
+  const photo = chickenPhotos[meal.id] ?? meal.components
+    .map(({ item }) => componentPhotos[item.id])
+    .find(Boolean);
+  if (!photo) return null;
+
+  return (
+    <figure className={`meal-photo meal-photo--${photo}`}>
+      <div className="meal-photo-image" aria-hidden="true" />
+      <figcaption>Sample image</figcaption>
+    </figure>
+  );
+}
+
 function Choice({
   label,
   value,
@@ -67,10 +96,12 @@ export default function Home() {
     [error, setError] = useState(''),
     [busy, setBusy] = useState(false),
     [favorites, setFavorites] = useState<string[]>([]),
-    [catalog, setCatalog] = useState<any[]>([]),
+    [catalog, setCatalog] = useState<any[] | null>(null),
+    [savedError, setSavedError] = useState(''),
     [detail, setDetail] = useState<any>(null),
     [storageError, setStorageError] = useState('');
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const savedRequestPending = useRef(false);
   useEffect(() => {
     setReady(true);
     try {
@@ -200,22 +231,29 @@ export default function Home() {
   async function showSaved() {
     setError('');
     setScreen('saved');
-    setBusy(true);
+    if (savedRequestPending.current) return;
+    savedRequestPending.current = true;
+    setSavedError('');
+    setCatalog(null);
     try {
       const res = await fetch('/api/meals');
-      if (!res.ok) throw Error('Could not load saved meals. Please try again.');
-      setCatalog(await res.json());
-    } catch (e) {
-      setError((e as Error).message);
+      if (!res.ok) throw Error(`Saved meals request failed with status ${res.status}`);
+      const meals = await res.json();
+      if (!Array.isArray(meals)) throw Error('Expected a list of meals');
+      setCatalog(meals);
+    } catch {
+      setSavedError('Could not load saved meals. Please try again.');
     } finally {
-      setBusy(false);
+      savedRequestPending.current = false;
     }
   }
   const sorted = (list: any[]) => rank(list, { ...applied, sort });
+  const savedMeals = catalog?.filter((meal) => favorites.includes(meal.id));
   const card = (meal: any) => (
     <article className="meal-card" key={meal.id}>
       <div className="card-head">
-        <div>
+        <MealPhoto meal={meal} />
+        <div className="card-title">
           <RestaurantName name={meal.restaurant} />
           <h3>{meal.name}</h3>
         </div>
@@ -306,14 +344,16 @@ export default function Home() {
           ♡ Saved meals <span className="count">{favorites.length}</span>
         </button>
       </header>
-      <main id="main" data-ready={ready}>
-        <div className="intro">
-          <span className="eyebrow">GOOD FOOD. YOUR GOALS.</span>
-          <h1>
-            Find your next bite<span>.</span>
-          </h1>
-          <p>Your cravings and your nutrition goals can share a table.</p>
-        </div>
+      <main id="main" data-ready={ready} className={screen === 'search' ? undefined : 'meal-screen'}>
+        {screen === 'search' && (
+          <div className="intro">
+            <span className="eyebrow">GOOD FOOD. YOUR GOALS.</span>
+            <h1>
+              Find your next bite<span>.</span>
+            </h1>
+            <p>Your cravings and your nutrition goals can share a table.</p>
+          </div>
+        )}
         {storageError && (
           <p role="alert" className="error">
             {storageError}
@@ -601,9 +641,9 @@ export default function Home() {
         ) : screen === 'saved' ? (
           <section>
             <div className="results-heading">
-              <h2 ref={titleRef} tabIndex={-1}>
+              <h1 ref={titleRef} tabIndex={-1}>
                 Your saved meals
-              </h2>
+              </h1>
               <button onClick={() => setScreen(result ? 'results' : 'search')}>
                 ← Back to meals
               </button>
@@ -612,28 +652,26 @@ export default function Home() {
               Saved on this browser. Nutrition may change; check sources before
               ordering.
             </p>
-            {busy ? (
+            {savedError ? (
+              <div>
+                <p role="alert" className="error">{savedError}</p>
+                <button onClick={showSaved}>Try again</button>
+              </div>
+            ) : !savedMeals ? (
               <p role="status">Loading saved meals…</p>
+            ) : savedMeals.length ? (
+              <div className="meal-grid">{savedMeals.map(card)}</div>
             ) : (
-              <>
-                {!catalog.some((m) => favorites.includes(m.id)) && (
-                  <div className="empty">
-                    No saved meals yet. Tap the heart on a meal to keep it here.
-                  </div>
-                )}
-                <div className="meal-grid">
-                  {catalog.filter((m) => favorites.includes(m.id)).map(card)}
-                </div>
-              </>
+              <div className="empty">
+                No saved meals yet. Tap the heart on a meal to keep it here.
+              </div>
             )}
           </section>
         ) : (
-          <section aria-live="polite">
+          <section>
             <div className="results-heading">
               <div>
-                <h2 ref={titleRef} tabIndex={-1}>
-                  Let’s find your fit.
-                </h2>
+                <h1 ref={titleRef} tabIndex={-1}>Meal results</h1>
                 <p>
                   {applied.calories.min}–{applied.calories.max} cal ·{' '}
                   {applied.categories.join(', ') || 'Anything'} · {applied.zip}{' '}
@@ -649,56 +687,36 @@ export default function Home() {
                 Edit filters
               </button>
             </div>
-            <div className="notice">{result.coverage.message}</div>
-            <RestaurantMap
-              key={`${applied.zip}:${applied.radius}`}
-              zip={applied.zip}
-              radius={applied.radius}
-              chains={[...new Set<string>([
-                ...result.strict, ...result.demo, ...sorted(result.near).slice(0, 8),
-              ].map((meal: any) => meal.restaurantId))].sort().join(',')}
-            />
-            <div className="sort-row">
-              <span>Calorie matches sort closest to the midpoint of your limits.</span>
-              <Choice
-                label="Sort meals"
-                value={sort}
-                onChange={setSort}
-                options={[
-                  { value: 'calories', label: 'Closest to calorie midpoint' },
-                  { value: 'protein', label: 'Highest protein' },
-                  {
-                    value: 'distance',
-                    label: 'Distance (unavailable)',
-                    disabled: !result.strict.some(
-                      (m: any) => m.distance !== null,
-                    ),
-                  },
-                ]}
-              />
-            </div>
-            <h3>Strict matches · {result.strict.length}</h3>
-            {!result.strict.length && (
-              <div className="empty">
-                <b>No verified matches for every filter.</b>
-                <p>
-                  {result.coverage.supported
-                    ? 'We cannot verify a branch within your radius. The separate demo section below shows meals that meet your nutrition and category preferences.'
-                    : 'This ZIP is outside our demo coverage. Edit your filters to use an example ZIP.'}
-                </p>
-              </div>
-            )}
-            <div className="meal-grid">{sorted(result.strict).map(card)}</div>
-            {result.coverage.supported && (
+            {result.coverage.supported ? (
               <>
-                <div className="section-heading">
-                  <span className="eyebrow">NATIONAL MENU DEMO</span>
-                  <h2>Nutrition matches · {result.demo.length}</h2>
-                  <p>
-                    These meet every active nutrient and category preference.
-                    Location is unverified.
-                  </p>
+                <p className="results-coverage">
+                  National-menu examples for {result.coverage.city}. Meal availability at individual branches is unverified.{' '}
+                  <a href="#restaurant-map-title">Map and directions</a>
+                </p>
+                <div className="sort-row">
+                  <span>Sort by</span>
+                  <Choice
+                    label="Sort meals"
+                    value={sort}
+                    onChange={setSort}
+                    options={[
+                      { value: 'calories', label: 'Closest to calorie midpoint' },
+                      { value: 'protein', label: 'Highest protein' },
+                      {
+                        value: 'distance',
+                        label: result.strict.length ? 'Distance' : 'Distance (unavailable)',
+                        disabled: !result.strict.length,
+                      },
+                    ]}
+                  />
                 </div>
+                {result.strict.length > 0 && (
+                  <>
+                    <h2>Strict matches · {result.strict.length}</h2>
+                    <div className="meal-grid">{sorted(result.strict).map(card)}</div>
+                  </>
+                )}
+                <h2>Nutrition matches · {result.demo.length}</h2>
                 {!result.demo.length && (
                   <div className="empty">
                     No nutrition matches. Try editing your goals or categories;
@@ -724,7 +742,17 @@ export default function Home() {
                   </>
                 )}
               </>
+            ) : (
+              <div className="notice">{result.coverage.message}</div>
             )}
+            <RestaurantMap
+              key={`${applied.zip}:${applied.radius}`}
+              zip={applied.zip}
+              radius={applied.radius}
+              chains={[...new Set<string>([
+                ...result.strict, ...result.demo, ...sorted(result.near).slice(0, 8),
+              ].map((meal: any) => meal.restaurantId))].sort().join(',')}
+            />
           </section>
         )}
         <footer>

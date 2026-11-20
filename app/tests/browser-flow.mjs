@@ -22,7 +22,7 @@ export async function runCalorieBoundsFlow(tab) {
   await p.getByRole('button', { name: 'Next: your location →' }).click();
   await p.getByRole('button', { name: '44512', exact: true }).click();
   await p.getByRole('button', { name: 'Find my meals', exact: true }).click();
-  await p.getByRole('heading', { name: 'Let’s find your fit.' }).waitFor({ state: 'visible' });
+  await p.getByRole('heading', { name: 'Meal results' }).waitFor({ state: 'visible' });
   const dom = await p.domSnapshot();
   assert(dom.includes('44512'), '44512 shortcut did not reach the results');
   assert(dom.includes('Nutrition matches'), 'Exact calorie target failed to return a result section');
@@ -43,16 +43,18 @@ export async function runBrowserFlow(tab) {
   await p.getByLabel('US ZIP code Required').fill('02108');
   await p.getByRole('button', { name: 'Find my meals', exact: true }).click();
   await p
-    .getByRole('heading', { name: 'Let’s find your fit.' })
+    .getByRole('heading', { name: 'Meal results' })
     .waitFor({ state: 'visible' });
   let dom = await p.domSnapshot();
   assert(dom.includes('02108'), 'ZIP leading zero lost');
   assert(
-    dom.includes('Strict matches · 0'),
-    'Unverified location marked strict',
+    !dom.includes('Strict matches') && dom.includes('Meal availability at individual branches is unverified'),
+    'Unverified locations should be explained without an empty strict group',
   );
   assert(dom.includes('Nutrition matches'), 'Nutrition results missing');
   assert(dom.includes('Near matches'), 'Near matches missing');
+  assert(dom.indexOf('Nutrition matches') < dom.indexOf('Find a restaurant'), 'Map appeared before the meal results');
+  assert(dom.includes('Sample image'), 'Meal preview label is missing');
   const name = 'Orange Chicken + Super Greens';
   const save = p.getByRole('button', { name: 'Save ' + name, exact: true });
   const alreadySaved = !(await save.isVisible());
